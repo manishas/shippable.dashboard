@@ -20,7 +20,10 @@ describe('Schema Tests',function() {
             return { save: spy };
         });
         var date = Date.now();
-        auth.onCompleted('sharathmq',date); 
+        var mockGithubObj = {
+
+        };
+        auth.onAuthCompleted(mockGithubObj); 
         spy.calledOnce.should.be.true;
         var userLoginAuditObj = spy.getCall(0).thisValue;
         userLoginAuditObj.should.have.property('sharathmq',date);
