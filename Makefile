@@ -8,7 +8,8 @@ run:
 TESTS = test/*.js
 TESTDATA = shippable/testresults
 test:
-	./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec $(TESTS)
+	mkdir -p $(TESTDATA)
+	XUNIT_FILE=$(TESTDATA)/result.xml ./node_modules/mocha/bin/mocha --timeout 5000 --reporter=xunit-file $(TESTS)
 
 COVERAGE = shippable/codecoverage
 coverage:
