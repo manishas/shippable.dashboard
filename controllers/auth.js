@@ -27,9 +27,9 @@ var g =  new GitHubStrategy({
         
         UserManager.saveUser(accessToken,refreshToken,profile
             ,function(user) {
-
-                var sessionObj = user.Id;
-                return done(null,sessionObj);
+                
+                //var sessionObj = user.Id;
+                return done(null,user);
             });
 
     }
