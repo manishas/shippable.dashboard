@@ -6,6 +6,7 @@ var config = require('../config/');
 var mongoose = require('mongoose');
 var model = require('../models/')(mongoose);
 var GitHubStrategy = require('passport-github').Strategy;
+var UserManager = require('../managers/user');
 describe('Auth',function() {
 
     it('should use passport',function() {
@@ -41,19 +42,42 @@ describe('Auth',function() {
         passport.use.restore();
       
     });
-    it('should log user data',function() {
+    it('should audit user login',function() {
         var spy = sinon.spy();
-        sinon.stub(model,"UserLoginAudit",function() {
+        var stub1 = sinon.stub(model,"UserLoginAudit",function() {
                         return { save: spy };
         });
 
-        var mockGithubObj = {  };
-        auth.onAuthCompleted(mockGithubObj);
+        var mockUserObject = { username: 'test'  };
+        UserManager.auditUserLogin(mockUserObject,null);
         spy.calledOnce.should.be.true;
         var userLoginAuditObj = spy.getCall(0).thisValue;
-        userLoginAuditObj.should.have.property('sharathmq',date);
+        userLoginAuditObj.should.have.property('githubId','test');
+        userLoginAuditObj.should.have.property('lastLoginTimeStamp');
+        //TODO: Check if lastLoginTimeStamp is not null
+        stub1.restore();
 
-        stub.restore();
       
+    });
+
+    it('saves user login',function() {
+
+        var spy2 = sinon.spy();
+
+        var stub2 = sinon.stub(model,"UserLogin",function() {
+                        return { save : spy2};
+        });
+        var access_token = 'sample_access';
+        var refresh_token = 'refresh_token';
+        var mockUserObject = { username: 'test'  };
+        UserManager.saveUser(access_token,refresh_token,mockUserObject,null);
+        spy2.calledOnce.should.be.true;
+        var userLogin = spy2.getCall(0).thisValue;
+        userLogin.should.have.property('githubId','test');
+        userLogin.should.have.property('accessToken',access_token);
+        userLogin.should.have.property('refreshToken',refresh_token);
+
+        
+        stub2.restore();
     });
 });

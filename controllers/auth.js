@@ -1,6 +1,7 @@
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var config = require('../config/');
+var UserManager= require('../managers/user');
 passport.serializeUser(function(user,done) {
     done(null,user);
 });
@@ -23,20 +24,16 @@ var g =  new GitHubStrategy({
         callbackURL:config.passport.github.callbackUrl
     }, function(accessToken,refreshToken,profile,done) {
         console.log('Got access token...'+accessToken);
-        process.nextTick(function() {
-            //TODO: Save accesstoken,refreshToken,profile to mongo
-            return done(null,profile);
-        });
+        
+        UserManager.saveUser(accessToken,refreshToken,profile
+            ,function(user) {
+
+                var sessionObj = user.Id;
+                return done(null,sessionObj);
+            });
+
     }
-                         );
-
-                         //console.log("new strategy.. %j",g);
-
-                         return g;
-
+    );
+    return g;
 }
 
-//Expecting the res object to hold the user data
-exports.onAuthCompleted=function(res) {
-
-}
