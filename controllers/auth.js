@@ -1,16 +1,26 @@
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
-exports.onAuthCompleted = function(githubObj) {
-    
-    //Saves the entry to the database
-};
+var config = require('../config/');
+passport.serializeUser(function(user,done) {
+    done(null,user);
+});
 
-exports.performLogin = function(passport) {
+passport.deserializeUser(function(o,d) {
+    d(null,o);
+});
 
-    passport.use(new GitHubStrategy({
-        clientID: "fb4327a96260c37ed1e0",
-        clientSecret:"39232925feb85e169443813c577f8d131da271e7",
-        callbackURL:"http://192.168.1.245:3000/auth/github/callback"
+//Passport stuff
+exports.init = function() {
+
+    passport.use(getGithubStrategy());
+}
+
+function getGithubStrategy() {
+
+var g =  new GitHubStrategy({
+        clientID: config.passport.github.clientId,
+        clientSecret:config.passport.github.secret,
+        callbackURL:config.passport.github.callbackUrl
     }, function(accessToken,refreshToken,profile,done) {
         console.log('Got access token...'+accessToken);
         process.nextTick(function() {
@@ -18,8 +28,15 @@ exports.performLogin = function(passport) {
             return done(null,profile);
         });
     }
-                                   
-                                   ));
+                         );
 
-    passport.authenticate('github',function(req,res) { });
+                         console.log("new strategy.. %j",g);
+
+                         return g;
+
+}
+
+//Expecting the res object to hold the user data
+exports.onAuthCompleted=function(res) {
+
 }

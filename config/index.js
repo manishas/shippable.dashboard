@@ -1,5 +1,5 @@
 var config,config_file = './'+(process.env.NODE_ENV ? process.env.NODE_ENV : 'dev')+'.js';
-
+console.log('Using.. '+config_file);
 try {
       config = require(config_file);
 } catch (err) {

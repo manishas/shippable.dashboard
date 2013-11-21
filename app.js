@@ -8,35 +8,12 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-
-//Custom
 var passport = require('passport');
-//var auth = require('./controllers/auth');
+var auth = require('./controllers/auth');
 
-passport.serializeUser(function(user,done) {
-    done(null,user);
-});
+var app =exports.app =  express();
 
-passport.deserializeUser(function(o,d) {
-    d(null,o);
-});
-
-var GitHubStrategy = require('passport-github').Strategy;
-passport.use(new GitHubStrategy({
-        clientID: "fb4327a96260c37ed1e0",
-        clientSecret:"39232925feb85e169443813c577f8d131da271e7",
-        callbackURL:"http://192.168.1.245:3000/auth/github/callback"
-    }, function(accessToken,refreshToken,profile,done) {
-        console.log('Got access token...'+accessToken);
-        process.nextTick(function() {
-            //TODO: Save accesstoken,refreshToken,profile to mongo
-            return done(null,profile);
-        });
-    }
-                                   
- ));
- 
-var app = express();
+auth.init();
 
 // all environments
 app.set('port', process.env.PORT || 3000);

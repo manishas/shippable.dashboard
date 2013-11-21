@@ -8,7 +8,7 @@ run:
 TESTS = test/*.js
 TESTDATA = shippable/testresults
 test:
-	 ./node_modules/mocha/bin/mocha --timeout 5000 $(TESTS)
+	./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec $(TESTS)
 
 COVERAGE = shippable/codecoverage
 coverage:
