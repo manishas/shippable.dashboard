@@ -30,7 +30,7 @@ var g =  new GitHubStrategy({
     }
                          );
 
-                         console.log("new strategy.. %j",g);
+                         //console.log("new strategy.. %j",g);
 
                          return g;
 

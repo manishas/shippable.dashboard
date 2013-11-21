@@ -23,10 +23,7 @@ describe('Auth',function() {
       
     });
     it('should use github strategy',function() {
-        
-
-    
-
+       
        // config.passport.github.clientId='abc';
 
         var spy = sinon.spy();
@@ -35,7 +32,7 @@ describe('Auth',function() {
         auth.init();
         //console.log(spy);
         var s = spy.args[0][0];
-        console.log("xxx %j",s);
+        //console.log("xxx %j",s);
         should.exist(s);
         s.should.be.an.instanceOf(GitHubStrategy);
         should(s._oauth2._clientId).equal(config.passport.github.clientId);
