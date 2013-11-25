@@ -55,7 +55,7 @@ app.get('/logout', function(req, res){
 });
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-      res.redirect('/')
+      res.redirect('/error')
 }
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

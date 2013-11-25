@@ -2,12 +2,17 @@ var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var config = require('../config/');
 var UserManager= require('../managers/user');
-passport.serializeUser(function(user,done) {
-    done(null,user);
+passport.serializeUser(function(Id,done) {
+    done(null,Id);
 });
 
-passport.deserializeUser(function(o,d) {
-  d(null,o);
+passport.deserializeUser(function(Id,done) {
+UserManager.findUserById(Id,function(err,user) {
+    if(err)
+    done(err,null);
+  done(null,user);
+});
+  
 });
 
 //Passport stuff
@@ -27,9 +32,9 @@ var g =  new GitHubStrategy({
         
         UserManager.saveUser(accessToken,refreshToken,profile
             ,function(user) {
-                
+                console.log(user._id);
                 //var sessionObj = user.Id;
-                return done(null,user);
+                return done(null,user._id);
             });
 
     }

@@ -80,4 +80,17 @@ describe('Auth',function() {
         
         stub2.restore();
     });
+
+    it('finds a user',function(){
+        var spy1 = sinon.spy();
+        var stub1 = sinon.stub(model.UserLogin,"findById",spy1);
+        var id = mongoose.Types.ObjectId;
+        UserManager.findUserById(id,null);
+        spy1.calledOnce.should.be.true;
+        var user =spy1.getCall(0).args[0];
+        (user === id).should.be.equal(true);
+        stub1.restore();
+
+    });
+
 });

@@ -39,4 +39,15 @@ exports.auditUserLogin = function(profile,callback) {
 
 }
 
+exports.findUserById = function(Id,callback) {
+    //TODO: Finds teh user based on Id
+  //
+  //
+ var user = models.UserLogin.findById(Id,function(err,doc){
+ if(callback)   
+   callback(err,doc);
+ });
+// console.log(user); 
 
+
+}
