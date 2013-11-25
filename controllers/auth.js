@@ -23,12 +23,8 @@ var g =  new GitHubStrategy({
         clientSecret:config.passport.github.secret,
         callbackURL:config.passport.github.callbackUrl
     }, function(accessToken,refreshToken,profile,done) {
-        console.log('Got access token...'+accessToken);
         
-        UserManager.saveUser(accessToken,refreshToken,profile
-            ,function(user) {
-                
-                //var sessionObj = user.Id;
+        UserManager.saveUser(profile,function(user) {
                 return done(null,user);
             });
 

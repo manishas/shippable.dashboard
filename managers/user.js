@@ -1,17 +1,13 @@
 var mongoose = require('mongoose');
 var models = require('../models/')(mongoose);
 
-exports.saveUser = function(accessToken,refreshToken,profile,callback) {
+exports.saveUser = function(profile,callback) {
 
     
     var user = new models.UserLogin();
              
-        user.githubId = profile.username;
-        user.accessToken= accessToken;
-        user.refreshToken= refreshToken;
-      
+    user.githubId = profile.username;
 
-    //console.log("User.. %j",user);
     user.save(function(err) {
         if(err)
             throw err;
