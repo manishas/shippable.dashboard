@@ -47,7 +47,7 @@ exports.findUserById = function(Id,callback) {
 }
 
 exports.findUser = function(id,callback){
-var user = models.UserLogin.find({'githubId':id},function(err,doc){
+var user = models.UserLogin.findOne({'githubId':id},function(err,doc){
 if(callback)
   callback(err,doc);
 });
