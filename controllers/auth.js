@@ -28,17 +28,14 @@ var g =  new GitHubStrategy({
         clientSecret:config.passport.github.secret,
         callbackURL:config.passport.github.callbackUrl
     }, function(accessToken,refreshToken,profile,done) {
-        console.log('Got access token...'+accessToken);
         
         UserManager.saveUser(accessToken,refreshToken,profile
             ,function(user) {
-                console.log(user._id);
-                //var sessionObj = user.Id;
+               //var sessionObj = user.Id;
                 return done(null,user._id);
             });
 
-    }
-    );
+    }   );
     return g;
 }
  

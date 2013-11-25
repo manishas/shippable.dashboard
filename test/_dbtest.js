@@ -12,8 +12,6 @@ describe('Schema Tests',function() {
     it('has a UserLogin schema',function() {
         var u = new model.UserLogin;
         u.schema.paths.should.have.property('githubId');
-        u.schema.paths.should.have.property('accessToken');
-        u.schema.paths.should.have.property('refreshToken');
 
     });
 

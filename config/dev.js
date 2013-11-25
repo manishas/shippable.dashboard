@@ -9,3 +9,9 @@ exports.passport = {
         callbackUrl:'http://192.168.1.131:3000/auth/github/callback'
     }
 }
+exports.database= {
+    mongo : {
+        server:'localhost',
+        databaseName:'dashboard_store'
+    }
+}

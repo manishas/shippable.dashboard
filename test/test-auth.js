@@ -70,12 +70,10 @@ describe('Auth',function() {
         var access_token = 'sample_access';
         var refresh_token = 'refresh_token';
         var mockUserObject = { username: 'test'  };
-        UserManager.saveUser(access_token,refresh_token,mockUserObject,null);
+        UserManager.saveUser(mockUserObject,null);
         spy2.calledOnce.should.be.true;
         var userLogin = spy2.getCall(0).thisValue;
         userLogin.should.have.property('githubId','test');
-        userLogin.should.have.property('accessToken',access_token);
-        userLogin.should.have.property('refreshToken',refresh_token);
 
         
         stub2.restore();

@@ -1,6 +1,6 @@
 var should = require('should');
 var config = require('../config');
-describe('Config',function() {
+describe('Github Config',function() {
 
     it('should define github passport config',function() {
         config.passport.should.have.property('github');
@@ -19,4 +19,13 @@ describe('Config',function() {
         should(config.passport.github).have.property('clientId');
         should(config.passport.github.clientId).not.equal('');
     }); 
+});
+
+describe('Mongo Config',function() {
+    it('should specify connection settings for db',function() {
+        should(config.database.mongo).have.property('server');
+        should(config.database.mongo.server).not.equal('');
+        should(config.database.mongo).have.property('databaseName');
+        should(config.database.mongo.database).not.equal('');
+    });
 });
