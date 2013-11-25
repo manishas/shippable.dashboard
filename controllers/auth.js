@@ -7,7 +7,7 @@ passport.serializeUser(function(user,done) {
 });
 
 passport.deserializeUser(function(o,d) {
-    d(null,o);
+  d(null,o);
 });
 
 //Passport stuff
@@ -36,4 +36,4 @@ var g =  new GitHubStrategy({
     );
     return g;
 }
-
+ 

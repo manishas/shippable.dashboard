@@ -9,7 +9,7 @@ exports.index = function(req, res){
 };
 
 exports.home = function(req,res) {
-    res.render('home');
+    res.render('home',{user: req.user});
 };
 exports.error = function(req,res) {
     res.render('error');

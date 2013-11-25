@@ -38,18 +38,25 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/home',routes.home);
+app.get('/home',ensureAuthenticated,routes.home);
 app.get('/error',routes.error);
 app.get('/users', user.list);
 app.get('/auth/github',
       passport.authenticate('github'),function(req,res) { });
 app.get('/auth/github/callback',
-        passport.authenticate('github',{ failureRedirect: '/' }),
+        passport.authenticate('github',{successRedirect: '/home', failureRedirect: '/error' }),
         function(req,res) {
-            res.redirect('/home');
+          //  res.redirect('/home');
         }
         );
-
+app.get('/logout', function(req, res){
+    req.logout();
+      res.redirect('/');
+});
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+      res.redirect('/')
+}
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
