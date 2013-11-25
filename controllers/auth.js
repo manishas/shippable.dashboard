@@ -28,14 +28,34 @@ var g =  new GitHubStrategy({
         clientSecret:config.passport.github.secret,
         callbackURL:config.passport.github.callbackUrl
     }, function(accessToken,refreshToken,profile,done) {
+       
+      UserManager.findUser(profile.username,function(err,loggedInUser){
         
-        UserManager.saveUser(profile
-            ,function(user) {
-               //var sessionObj = user.Id;
-                return done(null,user._id);
-            });
+        /*
+         *  if user is found, then we need to go to home page
+         *  else error page.
+         *
+         *  if user is found and is going to redirect to home, save the audit
+         *
+         * */
+        console.log(loggedInUser[0]);
+        if(loggedInUser[0] == null)
+          {
+            console.log("Not an authorized user");
+            done(err,null);
+          }
+        
+          else{
+            console.log("Recognised User");
+               UserManager.auditUserLogin(profile,
+                    function(auditUserLoginObject){
+                        return done(null,loggedInUser[0]._id);
+                    });
+              }
+        });
 
-    }   );
+
+    });
     return g;
 }
  

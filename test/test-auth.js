@@ -79,7 +79,7 @@ describe('Auth',function() {
         stub2.restore();
     });
 
-    it('finds a user',function(){
+    it('finds a user by id',function(){
         var spy1 = sinon.spy();
         var stub1 = sinon.stub(model.UserLogin,"findById",spy1);
         var id = mongoose.Types.ObjectId;
@@ -90,5 +90,16 @@ describe('Auth',function() {
         stub1.restore();
 
     });
+  
+  it('finds user by login',function(){
+        var spy1 = sinon.spy();
+        var stub1 = sinon.stub(model.UserLogin,"find",spy1);
+        UserManager.findUser('abcd',null);
+        spy1.calledOnce.should.be.true;
+        var user = spy1.getCall(0).args[0];
+        (user.githubId === 'abcd').should.be.equal(true);
+        stub1.restore();
+
+   });
 
 });
