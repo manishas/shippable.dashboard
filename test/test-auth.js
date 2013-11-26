@@ -93,7 +93,7 @@ describe('Auth',function() {
   
   it('finds user by login',function(){
         var spy1 = sinon.spy();
-        var stub1 = sinon.stub(model.UserLogin,"find",spy1);
+        var stub1 = sinon.stub(model.UserLogin,"findOne",spy1);
         UserManager.findUser('abcd',null);
         spy1.calledOnce.should.be.true;
         var user = spy1.getCall(0).args[0];

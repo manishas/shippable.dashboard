@@ -38,8 +38,8 @@ var g =  new GitHubStrategy({
          *  if user is found and is going to redirect to home, save the audit
          *
          * */
-        console.log(loggedInUser[0]);
-        if(loggedInUser[0] == null)
+        console.log(loggedInUser);
+        if(loggedInUser == null)
           {
             console.log("Not an authorized user");
             done(err,null);
@@ -49,7 +49,7 @@ var g =  new GitHubStrategy({
             console.log("Recognised User");
                UserManager.auditUserLogin(profile,
                     function(auditUserLoginObject){
-                        return done(null,loggedInUser[0]._id);
+                        return done(null,loggedInUser._id);
                     });
               }
         });
