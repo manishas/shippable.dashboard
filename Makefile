@@ -15,7 +15,7 @@ COVERAGE = shippable/codecoverage
 coverage: test
 	mkdir -p $(LOGDIR)
 	mkdir -p $(COVERAGE)
-	./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/mocha --timeout 5000 $(TESTS)
+	./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --timeout 5000 $(TESTS)
 	./node_modules/.bin/istanbul report cobertura --dir  $(COVERAGE)
 
 seed:
