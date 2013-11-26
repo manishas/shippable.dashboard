@@ -8,11 +8,14 @@ Setup
 
 2.  Change ```config/dev.js``` github section with the values of your Github App.
 
-3.  Run dependencies ```npm install```
+3.  Install dependencies ```npm install```
 
-4.  ```npm start``` should start the server
+4.	Edit ```.seed.csv' file to add yourself to the whitelist of allowed logins.
+	Run ```make seed``` to seed the database.
 
-5.  ```npm test``` will output test data in spec format.
+5.  ```npm start``` should start the server via supervisor
+
+6.  ```npm test``` will output test data in spec format.
 
 Info
 ---------------
