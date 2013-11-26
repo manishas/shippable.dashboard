@@ -18,6 +18,9 @@ coverage: test
 	./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/mocha --timeout 5000 $(TESTS)
 	./node_modules/.bin/istanbul report cobertura --dir  $(COVERAGE)
 
+seed:
+	mongoimport --db dashboard_store --collection userlogins --type csv --file ./.seed.csv --headerline
+
 clean:
 	rm -Rf $(COVERAGE)
 	rm -Rf $(LOGDIR)
