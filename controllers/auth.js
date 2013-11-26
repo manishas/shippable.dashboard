@@ -29,7 +29,7 @@ var g =  new GitHubStrategy({
         callbackURL:config.passport.github.callbackUrl
     }, function(accessToken,refreshToken,profile,done) {
         
-        UserManager.saveUser(accessToken,refreshToken,profile
+        UserManager.saveUser(profile
             ,function(user) {
                //var sessionObj = user.Id;
                 return done(null,user._id);
