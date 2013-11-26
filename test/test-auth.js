@@ -60,25 +60,6 @@ describe('Auth',function() {
       
     });
 
-    it('saves user login',function() {
-
-        var spy2 = sinon.spy();
-
-        var stub2 = sinon.stub(model,"UserLogin",function() {
-                        return { save : spy2};
-        });
-        var access_token = 'sample_access';
-        var refresh_token = 'refresh_token';
-        var mockUserObject = { username: 'test'  };
-        UserManager.saveUser(mockUserObject,null);
-        spy2.calledOnce.should.be.true;
-        var userLogin = spy2.getCall(0).thisValue;
-        userLogin.should.have.property('githubId','test');
-
-        
-        stub2.restore();
-    });
-
     it('finds a user by id',function(){
         var spy1 = sinon.spy();
         var stub1 = sinon.stub(model.UserLogin,"findById",spy1);

@@ -1,21 +1,6 @@
 var mongoose = require('mongoose');
 var models = require('../models/')(mongoose);
 
-exports.saveUser = function(profile,callback) {
-
-    
-    var user = new models.UserLogin();
-             
-    user.githubId = profile.username;
-
-    user.save(function(err) {
-        if(err)
-            throw err;
-        if(callback)
-            callback(user);
-    });
-}
-
 exports.auditUserLogin = function(profile,callback) {
 
     var user = new models.UserLoginAudit();
